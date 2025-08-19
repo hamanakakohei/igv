@@ -42,7 +42,7 @@ def main():
         region_start = max(0, start - args.flank)
         region_end = end + args.flank
         lines.append(f"goto {chrom}:{region_start}-{region_end}")
-        lines.append(args.view)   # expand / collapse / squish を選択
+        lines.append(args.view) 
         lines.append("scrollToTop")
         lines.append(f"snapshot {title}.png")
 
