@@ -1,1 +1,4 @@
 # igv
+
+lr-rnaseqなどで作ったtranscript modelを目視するために、gtfの興味のある領域のigv画像を大量に作るスクリプト
+bamの読み込みは未対応
