@@ -36,7 +36,7 @@ def main():
     lines.append(f"snapshotDirectory {outdir}")
     lines.append( 'maxPanelHeight 100000')
 
-    # 各領域でgotoとsnapshot
+    # 各領域でsnapshot
     for _, row in df.iterrows():
         chrom, start, end, title = row["chrom"], int(row["start"]), int(row["end"]), row["name"]
         region_start = max(0, start - args.flank)
