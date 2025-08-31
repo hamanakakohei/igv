@@ -1,4 +1,4 @@
 # igv
 
-lr-rnaseqなどで作ったtranscript modelを目視するために、gtfの興味のある領域のigv画像を大量に作るスクリプト
+lr-rnaseqなどで作ったtranscript modelを目視するために、gtfの興味のある領域のigv画像を大量に作るスクリプト。インプットはBEDで4列目までを使うが、それ以上の列があっても問題ない。
 bamの読み込みは未対応
