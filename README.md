@@ -1,4 +1,16 @@
 # igv
 
-lr-rnaseqなどで作ったtranscript modelを目視するために、gtfの興味のある領域のigv画像を大量に作るスクリプト。インプットはBEDで4列目までを使うが、それ以上の列があっても問題ない。
-bamの読み込みは未対応
+01.sh：あるファイルについて、多くの領域のigv画像を作るスクリプト。インプットはBEDで4列目までを使うが、それ以上の列があっても問題ない。
+01_data_region_combo.sh：ファイルと撮影領域の組み合わせが複数ある場合。インプットはchr, start, end, name, data（複数ファイルを「,」でつなげられる）。
+
+
+参考：
+- 似たような物がすでにあった、https://cmatkhan.github.io/brentlabRnaSeqTools/reference/createIgvBatchscript.html
+- https://github.com/andreykuzin70/batch_igv
+- https://t-arae.blog/posts/2024/2024-12-25-igv-batch-script/
+- https://github.com/stevekm/IGV-snapshot-automator
+- https://janbio.home.blog/2020/09/16/igv-batch-snapshot-from-command-line/
+- https://gist.github.com/stevekm/ac76c0c2fa4ee89db8ce2421cc6fbffc
+- https://igv.org/doc/desktop/#UserGuide/tools/batch/
+- etc.
+調べればいくらでも出てきそう、自分で作る必要なかった、、、
