@@ -1,33 +1,42 @@
 #!/usr/bin/env bash
-
+#
+# 0. IGVオート撮影用バッチファイルを作るためのインプット（4列目までのBED）を作る
+# - 4列目がその画像の名前に使われる
+#
+# 1. IGVバッチスクリプトを作る
+# - 固定されたbase filesの様々な領域を撮る用（インプットがchrom, start, end, name）
+# - IGVにfastaを与える際にファイル名から対応するbuildのRefSeq Selectが読み込まれるらしいので、fastaを与えるときは名をtmp.faとかにしておく
+#
+# 2. 1で作ったバッチスクリプトを動かして撮影する
+set -euo pipefail
 eval "$(conda shell.bash hook)"
 conda activate misc
 
 
-# 0. 撮影時に移すファイルなどを指定する
-SNAPSHOT_REGION_DATA=data/region_or_region_and_data.bed
+# 撮影する領域やアノテーションファイルやらを指定する
+IGV_JIKKOU_SCRIPT=~/IGV_Linux_2.19.5/igv.sh
 ANALYSIS_NAME=aaa
-REF=data/tmp.fa # 名前をこのようにすればRefseq Selectを勝手に読み込まれなくて済む
+SNAPSHOT_REGION_DATA=data/region.bed
 MARGIN=5000
-
 BASE_FILES=(
   data/aaa.gtf
   data/gencode.v47.primary_assembly.annotation.sorted.gtf
 )
+REF=data/tmp.fa
 
-IGV_JIKKOU_SCRIPT=~/IGV_Linux_2.19.5/igv.sh
+
+# 結果やログのディレクトリの準備
 IGV_BATCH_SCRIPT=results/01/igv_batch_scripts.$ANALYSIS_NAME.txt
+
 IMAGE_DIR=results/02/$ANALYSIS_NAME
 LOG1=logs/01/${ANALYSIS_NAME}.log
 LOG2=logs/02/${ANALYSIS_NAME}.log
-
-
-# 1. IGVバッチスクリプトを作る
 mkdir -p results/01
 mkdir -p $IMAGE_DIR
 mkdir -p logs
 
-# パターン1（インプットがchrom, start, end, nameのみ）
+
+# 1. IGVバッチスクリプトを作る
 scripts/01.py \
   -i $SNAPSHOT_REGION_DATA \
   --genome $REF \
@@ -37,17 +46,6 @@ scripts/01.py \
   --flank $MARGIN \
   --view expand \
   > $LOG1 2>&1
-
-# パターン2（インプットがchrom, start, end, data）
-scripts/01_data-region_combo.py \
-  -i $SNAPSHOT_REGION_DATA \
-  -o $IGV_BATCH_SCRIPT \
-  -d $IMAGE_DIR \
-  --flank $MARGIN \
-  --view expand \
-  --as_pairs \
-  --sort \
-  > $LOG1 2>&1
   
 
 # 2. そのスクリプト通りに撮影する
@@ -56,4 +54,3 @@ xvfb-run \
   $IGV_JIKKOU_SCRIPT \
   -b $IGV_BATCH_SCRIPT \
   > $LOG2 2>&1
-
