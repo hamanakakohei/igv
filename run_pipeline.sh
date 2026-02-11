@@ -16,13 +16,13 @@ conda activate misc
 # 撮影する領域やアノテーションファイルやらを指定する
 IGV_JIKKOU_SCRIPT=~/IGV_Linux_2.19.5/igv.sh
 ANALYSIS_NAME=aaa
-SNAPSHOT_REGION_DATA=data/region.bed
+SNAPSHOT_REGION_DATA=inputs/region.bed
 MARGIN=5000
 BASE_FILES=(
-  data/aaa.gtf
-  data/gencode.v47.primary_assembly.annotation.sorted.gtf
+  inputs/aaa.gtf
+  inputs/gencode.v47.primary_assembly.annotation.sorted.gtf
 )
-REF=data/tmp.fa
+REF=inputs/tmp.fa
 
 
 # 結果やログのディレクトリの準備
